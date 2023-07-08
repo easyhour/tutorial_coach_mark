@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:tutorial_coach_mark/src/target/target_content.dart';
@@ -30,6 +31,8 @@ class TutorialCoachMarkWidget extends StatefulWidget {
     this.pulseEnable = true,
     this.skipWidget,
     this.rootOverlay = false,
+    this.showSkipInLastTarget = false,
+    this.imageFilter,
   })  : assert(targets.length > 0),
         super(key: key);
 
@@ -54,6 +57,8 @@ class TutorialCoachMarkWidget extends StatefulWidget {
   final bool pulseEnable;
   final Widget? skipWidget;
   final bool rootOverlay;
+  final bool showSkipInLastTarget;
+  final ImageFilter? imageFilter;
 
   @override
   TutorialCoachMarkWidgetState createState() => TutorialCoachMarkWidgetState();
@@ -84,6 +89,7 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget>
             pulseVariation: widget.pulseVariation,
             pulseEnable: widget.pulseEnable,
             rootOverlay: widget.rootOverlay,
+            imageFilter: widget.imageFilter,
             clickTarget: (target) {
               return widget.clickTarget?.call(target);
             },
@@ -241,7 +247,7 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget>
           widget.targets.indexOf(currentTarget!) == widget.targets.length - 1;
     }
 
-    if (widget.hideSkip || isLastTarget) {
+    if (widget.hideSkip || (isLastTarget && !widget.showSkipInLastTarget)) {
       return const SizedBox.shrink();
     }
 
@@ -256,6 +262,7 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget>
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: IgnorePointer(
+                ignoringSemantics: false,
                 child: widget.skipWidget ??
                     Text(
                       widget.textSkip,

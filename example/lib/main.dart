@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
@@ -229,7 +231,8 @@ class MyHomePageState extends State<MyHomePage> {
       colorShadow: Colors.red,
       textSkip: "SKIP",
       paddingFocus: 10,
-      opacityShadow: 0.8,
+      opacityShadow: 0.5,
+      imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
       onFinish: () {
         print("finish");
       },
@@ -257,14 +260,15 @@ class MyHomePageState extends State<MyHomePage> {
         identify: "keyBottomNavigation1",
         keyTarget: keyBottomNavigation1,
         alignSkip: Alignment.topRight,
+        enableOverlayTab: true,
         contents: [
           TargetContent(
             align: ContentAlign.top,
             builder: (context, controller) {
-              return Column(
+              return const Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
+                children: <Widget>[
                   Text(
                     "Titulo lorem ipsum",
                     style: TextStyle(
@@ -288,10 +292,10 @@ class MyHomePageState extends State<MyHomePage> {
           TargetContent(
             align: ContentAlign.top,
             builder: (context, controller) {
-              return Column(
+              return const Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
+                children: <Widget>[
                   Text(
                     "Titulo lorem ipsum",
                     style: TextStyle(
@@ -315,10 +319,10 @@ class MyHomePageState extends State<MyHomePage> {
           TargetContent(
             align: ContentAlign.top,
             builder: (context, controller) {
-              return Column(
+              return const Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
+                children: <Widget>[
                   Text(
                     "Titulo lorem ipsum",
                     style: TextStyle(
@@ -340,10 +344,10 @@ class MyHomePageState extends State<MyHomePage> {
           TargetContent(
             align: ContentAlign.bottom,
             builder: (context, controller) {
-              return Column(
+              return const Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
+                children: <Widget>[
                   Text(
                     "Titulo lorem ipsum",
                     style: TextStyle(
@@ -415,10 +419,10 @@ class MyHomePageState extends State<MyHomePage> {
         contents: [
           TargetContent(
             align: ContentAlign.left,
-            child: Column(
+            child: const Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
+              children: <Widget>[
                 Text(
                   "Multiples content",
                   style: TextStyle(
@@ -438,10 +442,10 @@ class MyHomePageState extends State<MyHomePage> {
           ),
           TargetContent(
               align: ContentAlign.top,
-              child: Column(
+              child: const Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
+                children: <Widget>[
                   Text(
                     "Multiples content",
                     style: TextStyle(
@@ -468,10 +472,10 @@ class MyHomePageState extends State<MyHomePage> {
       contents: [
         TargetContent(
             align: ContentAlign.right,
-            child: Column(
+            child: const Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
+              children: <Widget>[
                 Text(
                   "Title lorem ipsum",
                   style: TextStyle(
@@ -531,37 +535,17 @@ class MyHomePageState extends State<MyHomePage> {
       ],
       shape: ShapeLightFocus.Circle,
     ));
-    targets.add(TargetFocus(
-      identify: "Target 5",
-      keyTarget: keyButton2,
-      contents: [
-        TargetContent(
-          align: ContentAlign.top,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[
-              Padding(
-                padding: EdgeInsets.only(bottom: 20.0),
-                child: Text(
-                  "Multiples contents",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0),
-                ),
-              ),
-              Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar tortor eget maximus iaculis.",
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
-          ),
-        ),
-        TargetContent(
-            align: ContentAlign.bottom,
-            child: Column(
+    targets.add(
+      TargetFocus(
+        identify: "Target 5",
+        keyTarget: keyButton2,
+        shape: ShapeLightFocus.Circle,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            child: const Column(
               mainAxisSize: MainAxisSize.min,
-              children: const <Widget>[
+              children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(bottom: 20.0),
                   child: Text(
@@ -577,10 +561,32 @@ class MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(color: Colors.white),
                 ),
               ],
-            ))
-      ],
-      shape: ShapeLightFocus.Circle,
-    ));
+            ),
+          ),
+          TargetContent(
+              align: ContentAlign.bottom,
+              child: const Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 20.0),
+                    child: Text(
+                      "Multiples contents",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0),
+                    ),
+                  ),
+                  Text(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar tortor eget maximus iaculis.",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ))
+        ],
+      ),
+    );
 
     return targets;
   }
